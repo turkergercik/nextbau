@@ -38,7 +38,7 @@ export default function Navbar() {
       {/* Logo */}
       <div className="text-lg font-semibold w-full items-center h-full flex">
         <Link href="/">
-          <img className='w-[30px] custom:w-[50px]' src={'/assets/logo.png'} width={0} objectFit="contain" height={0} alt="logo" />
+          <img className='w-[30px] custom:w-[50px]' src={'/assets/logo.png'} width={0} height={0} alt="logo" />
         </Link>
       </div>
   

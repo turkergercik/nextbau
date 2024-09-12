@@ -20,13 +20,13 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col justify-center items-center text-center p-6 bg-gray-800 rounded-md shadow-lg">
-            <span className="text-xl font-semibold text-purple-600 mb-2">Kurumsal</span>
-            <span className="text-lg font-semibold text-gray-400 mb-4">MİSYON</span>
+            <span className="text-xl font-semibold text-purple-600 mb-2">Gelecek</span>
+            <span className="text-lg font-semibold text-gray-400 mb-4">VİZYON</span>
             <p className="text-gray-200">
-              Bahçeşehir Üniversitesi bünyesinde kurulmuş olan “BlockchainIST (Blockchain İstanbul) Center”, Blockchain
-              teknolojisi alanında faaliyet gösteren, Türkiye'nin ilk üniversite araştırma ve geliştirme merkezidir.
-              Merkezimiz, başta üniversiteler olmak üzere tüm sivil toplum kuruluşlarına, özel ve kamu sektöründe faaliyet
-              gösteren firmalara gerek danışmanlık gerekse eğitim hizmeti sunmaktadır.
+            LinkedIn'e göre, “Blockchain”, 2020'de firmalar tarafından en çok ihtiyaç duyulan 10 teknik beceri listesinde
+             1. sırada yer almaktadır. “BlockchainIST Center”, Blockchain teknolojisi ile ilgilenen herkesi eğitmeyi, firmalar
+              ve kamu kurumları için stratejik öncelikleri tasarlamayı ve yetiştirdiği Blockchain uzmanları ile dünyayı dönüştürmeyi
+               amaçlamaktadır.
             </p>
           </div>
         </div>

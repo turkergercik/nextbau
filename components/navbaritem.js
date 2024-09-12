@@ -11,7 +11,7 @@ export default function NavbarItem({ route, isOpen, onClick, closeDropdown }) {
       <div className="relative">
         <button
           onClick={onClick}
-          className="hover:bg-purple-600 hover:scale-110 transition-transform whitespace-nowrap p-2 rounded flex-row flex justify-center items-center gap-2 text-gray-200"
+          className="hover:bg-gray-700 hover:scale-110 transition-transform whitespace-nowrap p-2 rounded flex-row flex justify-center items-center gap-2 text-gray-200"
         >
           {route.label}
           {isOpen === true ? <IoIosArrowDropdownCircle /> : <IoIosArrowDropdown />}
@@ -22,7 +22,7 @@ export default function NavbarItem({ route, isOpen, onClick, closeDropdown }) {
               <Link
                 key={index}
                 href={child.path}
-                className="block px-4 py-2 hover:bg-gray-800 rounded-md"
+                className="block px-4 py-2 hover:bg-gray-700 rounded-md"
                 onClick={closeDropdown} // Close dropdown when a link is clicked
               >
                 {child.label}
@@ -38,7 +38,7 @@ export default function NavbarItem({ route, isOpen, onClick, closeDropdown }) {
       <Link
         href={route.path}
         onClick={closeDropdown}
-        className="hover:bg-purple-600 p-2 whitespace-nowrap w-full rounded hover:scale-110 transition-transform text-gray-200"
+        className="hover:bg-gray-700 p-2 whitespace-nowrap w-full rounded hover:scale-110 transition-transform text-gray-200"
       >
         {route.label}
       </Link>

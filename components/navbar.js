@@ -36,9 +36,9 @@ export default function Navbar() {
     <nav className="bg-gray-900 border-b-white border-b-2 text-gray-200 p-2 fixed h-[70px] custom:h-24 flex z-10 w-full">
     <div className="flex justify-between w-full items-center ">
       {/* Logo */}
-      <div className="text-lg font-semibold w-full items-center h-full flex">
+      <div className="text-lg font-semibold w-full items-center h-full flex pl-2">
         <Link href="/">
-          <img className='w-[30px] custom:w-[50px]' src={'/assets/logo.png'} width={0} height={0} alt="logo" />
+          <Image className='w-[100px] custom:w-[100px]' src={'/assets/logo1.png'} priority width={1000} height={1000} alt="logo" />
         </Link>
       </div>
   

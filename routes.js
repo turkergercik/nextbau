@@ -24,7 +24,7 @@ const navbarRoutes = [
       children: [
         { label: 'Academy', path: '/services/design' },
         { label: 'Sha example', path: '/services/sha' },
-        { label: 'Market', path: '/services/marketing' },
+        { label: 'Market', path: '/services/market' },
       ],
     },
     {

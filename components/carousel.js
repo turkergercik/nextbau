@@ -12,7 +12,7 @@ import "swiper/css/navigation";
 import "swiper/css/zoom";
 
 export default function Carousel({images}){
-    console.log(images)
+    
     const swiperref  = useRef(null)
     if(images){
 

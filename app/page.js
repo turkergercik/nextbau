@@ -1,10 +1,52 @@
+"use client"
 import Image from "next/image";
 import bg from "../public/assets/snow.jpg";
-
+import Carousel from "@/components/carousel";
+import { useState,useEffect } from "react";
 export default function Home() {
+  const [images,setImages] = useState([])
+  useEffect(() => {
+    const rt = async()=>{
+     
+     const res  = await fetch("/api",{
+       cache:"force-cache",
+       method:"GET"
+     })
+     const imgs  = await res.json()
+     setImages(imgs)
+    }
+    rt()
+ 
+     /* const fetchImages = async () => {
+       try {
+         const response = await axios.get(
+           `https://www.googleapis.com/drive/v3/files`,
+           {
+             params: {
+               q: `'${folderId}' in parents`, // No MIME type filter
+               key: API_KEY,
+               fields: "files(id, name)",
+             },
+           }
+         );
+         console.log(response.data.files[0])
+         setImages(response.data.files);
+       } catch (error) {
+         console.error("Error fetching images from Google Drive:", error);
+       }
+     };
+ 
+     fetchImages(); */
+   }, []);
+ 
+  
+
+ 
+
+
   return (
-    <div className="w-full min-h-screen bg-gray-900 text-gray-200">
-      <div className="flex justify-center flex-col items-center p-10">
+    <div className="w-screen h-screen bg-gray-900 text-gray-200">
+      <div className="flex justify-center bg-gray-900 flex-col items-center p-10 ">
         <h1 className="text-4xl text-white font-bold mb-10">About Us</h1>
         <div className="flex custom:flex-row flex-col justify-center gap-8 w-full max-w-6xl">
           {/* About Us Cards */}
@@ -31,13 +73,24 @@ export default function Home() {
           </div>
         </div>
       </div>
-
+   
       {/* Parallax Section 1 */}
-      <div className="relative h-screen bg-white  bg-center bg-clip-content bg-fixed bg-no-repeat" style={{ backgroundImage: `url("/assets/crypto2.jpg")` }}>
-        <div className="h-full bg-black bg-opacity-50 flex items-center justify-center">
-          <h1 className="text-white text-5xl font-bold">Section 1</h1>
-        </div>
-      </div>
+      {
+        images.length>0 && <>
+        {
+          images.map((item,index)=>{
+            console.log(item.folder)
+            return <Carousel key={index} images={item.data}>
+
+            </Carousel>
+          })
+        }
+        
+        </>
+        
+        }
+      
+      
 
       {/* Content Section 1 */}
       <div className="p-10 bg-gray-800 text-gray-200 flex flex-1 justify-center items-center">

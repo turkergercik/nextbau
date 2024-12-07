@@ -37,9 +37,9 @@ export async function GET(request) {
                      transformedUrl = cloudinary.url(item.public_id, {
                         resource_type:"image",
                         transformation: [
-                            { width: 750, height: 750, crop: "fill" }, // Resize transformation
+                            { width: 500, height: 500, crop: "fill" }, // Resize transformation
                             { quality: "auto" },                      // Adjust quality automatically
-                            { radius: 50 },                           // Add rounded corners
+                                                      // Add rounded corners
                         ],
                         format:"png", // Choose format based on type
                     });
@@ -49,7 +49,7 @@ export async function GET(request) {
                         transformation: [
                             { width: 750, height: 750, crop: "fill" }, // Resize transformation
                             { quality: "auto" },                      // Adjust quality automatically
-                            { radius: 50 },                           // Add rounded corners
+                                                  // Add rounded corners
                         ],
                         format:"mp4", // Choose format based on type
                     });

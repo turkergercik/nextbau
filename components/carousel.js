@@ -13,100 +13,89 @@ import "swiper/css/zoom";
 
 export default function Carousel({images}){
     
-    const swiperref  = useRef(null)
+    const swiperRef  = useRef(null)
     if(images){
 
     
-    return(
-        <>
-        {images.length!==0 && <div className="bg-gray-900  w-full h-1/2 flex justify-center border-y-2 p-3 items-center">
-            {/* <button onClick={() => swiperRef.current?.slidePrev()}>Prev</button> */}
-              <Swiper
-              initialSlide={1}
-               onBeforeInit={(swiper) => {
-                swiperref.current=swiper
-              }}
-              draggable={false}
-              effect="coverflow"
-              coverflowEffect={{
-                rotate: 35,
-                stretch: 0,
-                depth: 100,
-                scale:0.7,
-                modifier: 1,
-                slideShadows: false,
-              }}
-              zoom={true}
-              pagination={{
-                clickable: true,
-                dynamicBullets:true,
-              
-              }}
-              slidesPerView={images.length <=3 ? 1.5:"auto"}
-                navigation={false}
-                slideToClickedSlide
-                centeredSlides
-                
-                autoplay={{delay:2500,stopOnLastSlide:false,disableOnInteraction:false }}
-              loop
-                breakpoints={{
-                  100: {
-                    slidesPerView: 1.5,
-                    spaceBetween: 10,
-                  },
-                  480: {
-                    slidesPerView: 2,
-                    spaceBetween: 10,
-                  },
-                  
-                  640: {
-                    slidesPerView: 2.5,
-                    spaceBetween: 10,
-                  },
-                  768: {
-                    slidesPerView: 3,
-                    spaceBetween: 15,
-                  },
-                  1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 20,
-                  },
-                }}
-                
-                className=" w-full h-full"
-               
-                modules={[Zoom,Autoplay,Navigation,EffectCoverflow]}
-              >
-                {images?.map((image,index) => (
-                  <SwiperSlide
-                    key={index}
-                    className="  "
-                  >
-                    <div className=" h-full bg-gray-900 w-full flex items-center justify-center">
-                        {image.type==="image" ?  <img
-                        className="object-cover rounded-2xl h-full  w-full " // Rounded corners applied to the image
-                        src={image.transformedUrl}
-                        alt={image.name}
-                      />:<video
-                      muted
-                      controls
-                      onPlay={()=>{swiperref.current.autoplay.stop()}}
-                      onPause={()=>{swiperref.current.autoplay.start()}}
-                      className="w-full h-full bg-gray-900 rounded-2xl object-cover"
-                      >
-                         <source src={image.transformedUrl} type="video/mp4" />
-                      </video>
+        return (
+            <>
+              {images.length !== 0 && (
+                <div className="bg-gray-900 w-full flex justify-center border-y-2 p-5 items-center">
+                  <Swiper
+                    initialSlide={1}
+                    onBeforeInit={(swiper) => {
+                      swiperRef.current = swiper;
+                      
+                    }}
+                    draggable={false}
+                    effect="coverflow"
+                    coverflowEffect={{
+                      rotate: 35,
+                      stretch: 0,
+                      depth: 100,
+                      scale: 0.7,
+                      modifier: 1,
+                      slideShadows: false,
+                    }}
+                    zoom={true}
+                    pagination={{
+                      clickable: true,
+                      dynamicBullets: true,
+                    }}
+                    slidesPerView={images.length<=3 ? 1:3} // Always maintain 3 slides per view
+                    navigation={false}
+                    centeredSlides
+                    autoplay={{
+                      delay: 2500,
+                      stopOnLastSlide: false,
+                      disableOnInteraction: false,
+                    }}
+                    loop
                     
-                        }
-                     
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-              
-              {/* <button onClick={() => swiperRef.current?.slideNext()}>Next</button> */}
-            </div>}
+                    className="w-full"
+                    modules={[Zoom, Autoplay, Navigation, EffectCoverflow]}
+                  >
+                    {images?.map((image, index) => (
+                      <SwiperSlide
+                        key={index}
+                        className="flex justify-center items-center"
+                      >
+                        <div
+                          className="flex items-center justify-center rounded-2xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
+                          style={{
+                             // Base height for all screens
+                            maxHeight: "450px", // Restrict height on larger screens
+                            minHeight: "100px", // Minimum height for smaller devices
+                          }}
+                        >
+                          {image.type === "image" ? (
+                            <img
+                              className="object-cover w-full h-full aspect-[3/4]"
+                              src={image.transformedUrl}
+                              alt={image.name}
+                            />
+                          ) : (
+                            <video
+                              muted
+                              controls
+                              onPlay={() => {
+                                swiperRef.current.autoplay.stop();
+                              }}
+                              onPause={() => {
+                                swiperRef.current.autoplay.start();
+                              }}
+                              className="w-full h-full object-cover bg-gray-900 rounded-2xl"
+                            >
+                              <source src={image.transformedUrl} type="video/mp4" />
+                            </video>
+                          )}
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              )}
             </>
-    )
-}
+          )
+        }
 }

@@ -33,10 +33,31 @@ module.exports = {
       screens: {
         'custom': '850px',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            color:"red",
+            h1: {
+              
+              color:"blue",
+              fontSize: '2.5rem',
+              fontWeight: '700',
+            },
+            p: {
+              color:"blue",
+              fontSize: '1.1rem',
+              lineHeight: '1.8',
+            },
+            img: {
+              borderRadius: '0.5rem',
+            },
+          },
+        },
     },
+  }
       
     },
     
   
-  plugins: [  require('tailwind-scrollbar')({ nocompatible: true,preferredStrategy:'pseudoelements' }),],
+  plugins: [  require('tailwind-scrollbar')({ nocompatible: true,preferredStrategy:'pseudoelements' }),require('@tailwindcss/typography')],
 };

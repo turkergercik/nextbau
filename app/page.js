@@ -2,18 +2,48 @@
 import Image from "next/image";
 import bg from "../public/assets/snow.jpg";
 import Carousel from "@/components/carousel";
-import { useState,useEffect } from "react";
+import { useState,useEffect, useRef } from "react";
+import ScrollableButtonContainer from "@/components/scrollable";
+import YouTubeVideos from "@/components/youtube";
+import MediumArticles from "@/components/insights";
+import { useRouter } from "next/navigation";
 export default function Home() {
+  const router = useRouter();
   const [images,setImages] = useState([])
+  const [folders,setFolders] = useState([])
+  const [selectedfolders,setselectedFolders] = useState("")
+  const allgallery = useRef([])
   useEffect(() => {
     const rt = async()=>{
-     
-     const res  = await fetch("/api",{
+      console.log(1)
+     try {
+      const res  = await fetch("/api/folders",{
+        cache:"force-cache",
+        method:"GET"
+      })
+      const foldersresponse  = await res.json()
+      setFolders(foldersresponse)
+      let header = encodeURIComponent(foldersresponse[0].name.toString());
+      console.log(header);
+      console.log(foldersresponse[0].name)
+      const res1  = await fetch(`/api?foldername=${foldersresponse[0].name}`,{
        cache:"force-cache",
-       method:"GET"
+       method:"GET",
+       headers: {
+        'foldername':header
+      }
      })
-     const imgs  = await res.json()
-     setImages(imgs)
+     const foldersresponse1  = await res1.json()
+     setImages(foldersresponse1)
+     allgallery.current.push({folder:foldersresponse[0].name,data:foldersresponse1})
+     setselectedFolders(foldersresponse[0].name)
+     console.log(allgallery.current)
+     } catch (error) {
+      console.log(error)
+     }
+     
+   
+     //setImages(imgs)
     }
     rt()
  
@@ -39,7 +69,39 @@ export default function Home() {
      fetchImages(); */
    }, []);
  
+  useEffect(()=>{
+    if(selectedfolders!==""){
+      const rt = async()=>{
+        const filtered = allgallery.current.filter((item)=>item.folder===selectedfolders)
+        console.log(filtered,855)
+        if(filtered.length===0){
+         try {
+           let header = encodeURIComponent(selectedfolders);
+           const res1  = await fetch(`/api?foldername=${selectedfolders}`,{
+            method:"GET",
+          })
+          const foldersresponse1  = await res1.json()
+          setImages(foldersresponse1)
+          allgallery.current.push({folder:selectedfolders,data:foldersresponse1})
+          } catch (error) {
+           console.log(error)
+          }
+        }else{
+         setImages(filtered[0].data)
+        }
+         
+         
+       
+         //setImages(imgs)
+        }
+        rt()
+    }
+    
+     
   
+
+
+  },[selectedfolders])
 
  
 
@@ -47,11 +109,11 @@ export default function Home() {
   return (
     <div className="w-screen h-screen bg-gray-900 text-gray-200">
       <div className="flex justify-center bg-gray-900 flex-col items-center p-10 ">
-        <h1 className="text-4xl text-white font-bold mb-10">About Us</h1>
+    
         <div className="flex custom:flex-row flex-col justify-center gap-8 w-full max-w-6xl">
           {/* About Us Cards */}
           <div className="flex flex-col justify-center items-center text-center p-6 bg-gray-800 rounded-md shadow-lg">
-            <span className="text-xl font-semibold text-gray-300 mb-2">Kurumsal</span>
+            
             <span className="text-lg font-semibold text-gray-500 mb-4">MİSYON</span>
             <p className="text-gray-200">
               Bahçeşehir Üniversitesi bünyesinde kurulmuş olan “BlockchainIST (Blockchain İstanbul) Center”, Blockchain
@@ -62,7 +124,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col justify-center items-center text-center p-6 bg-gray-800 rounded-md shadow-lg">
-            <span className="text-xl font-semibold text-gray-300 mb-2">Gelecek</span>
+           
             <span className="text-lg font-semibold text-gray-500 mb-4">VİZYON</span>
             <p className="text-gray-200">
             LinkedIn'e göre, “Blockchain”, 2020'de firmalar tarafından en çok ihtiyaç duyulan 10 teknik beceri listesinde
@@ -73,22 +135,23 @@ export default function Home() {
           </div>
         </div>
       </div>
-   
-      {/* Parallax Section 1 */}
-      {
-        images.length>0 && <>
-        {
-          images.map((item,index)=>{
-            console.log(item.folder)
-            return <Carousel key={index} images={item.data}>
+      <div className="pb-2 bg-gray-900 ">
+         <YouTubeVideos router={router}></YouTubeVideos>
+         
+      </div>
+      <MediumArticles  router={router}></MediumArticles>
+<div className="bg-gray-900 border-y-2 p-1 pt-2">
+            <span className="text-3xl text-center block p-2">{selectedfolders}</span>
+            <Carousel  images={images}>
 
             </Carousel>
-          })
-        }
-        
-        </>
-        
-        }
+            <div className="py-2">
+<ScrollableButtonContainer folders={folders} selectedfolders={selectedfolders} setselectedFolders={setselectedFolders}  ></ScrollableButtonContainer>
+
+            </div>
+</div>
+   
+      
       
       
 

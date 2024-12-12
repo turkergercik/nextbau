@@ -10,21 +10,66 @@ cloudinary.config({
     sdk_semver: "2.0.0",
 
 });
-
+export const dynamic = 'force-dynamic';
 
 export async function GET(request) {
     let response = [];
-
+    let res
+    
     try {
-        // Get all root folders
-        const folders = await cloudinary.api.root_folders();
+        const { searchParams } = new URL(request.url);
+        const foldername = searchParams.get('foldername')
+        /* const headers = request.headers.get('foldername');
 
-        if (!folders.folders || folders.folders.length === 0) {
-            throw new Error("No folders found in the Cloudinary account.");
-        }
+        const foldername = decodeURIComponent(headers);
+        console.log(headers */
+
+        const result = await cloudinary.api.resources_by_asset_folder(foldername, {
+            max_results: 100,
+        });
+        res = result.resources.map((item, index) => {
+            let transformedUrl=null
+            if(item.resource_type==="image"){
+                 transformedUrl = cloudinary.url(item.public_id, {
+                    resource_type:"image",
+                    transformation: [
+                        { width: 1000, height: 750}, // Resize transformation
+                        
+                        { quality: "auto" },                      // Adjust quality automatically
+                                                  // Add rounded corners
+                    ],
+                    format:"jpg", // Choose format based on type
+                });
+            }else{
+                 transformedUrl = cloudinary.url(item.public_id, {
+                    resource_type:"video",
+                    transformation: [
+                        { width: 1000, height: 750}, // Resize transformation
+                        { quality: "auto" },                      // Adjust quality automatically
+                                              // Add rounded corners
+                    ],
+                    format:"mp4", // Choose format based on type
+                });
+                console.log(transformedUrl)
+            }
+            
+            
+
+            return {
+                id: item.public_id,
+                type:item.resource_type,
+                originalUrl: item.secure_url, // Original URL
+                transformedUrl,              // Transformed URL      // Custom name
+            };
+        });
+
+        // Get all root folders
+        /* const folders = await cloudinary.api.root_folders(); */
+
+       
 
         // Use a `for...of` loop to handle async operations
-        for (const folder of folders.folders) {
+        /* for (const folder of folders.folders) {
             // Fetch resources for the folder
             const result = await cloudinary.api.resources_by_asset_folder(folder.path, {
                 max_results: 100,
@@ -71,12 +116,12 @@ export async function GET(request) {
                 folder: folder.name,
                 data: res,
             });
-        }
+        } */
 
-        console.log('Resources with transformations:', response);
+    
     } catch (error) {
         console.error('Error fetching resources:', error);
     }
 
-    return NextResponse.json(response);
+    return NextResponse.json(res);
 }

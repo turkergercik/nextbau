@@ -2,38 +2,27 @@
 
 
 const navbarRoutes = [
-    {
-      label: 'About us',
-      path: '/',
-    }, {
-      label: 'Projects',
-      path: '/',
-    }, {
-      label: 'Partnerships',
-      path: '/',
-    }, {
-      label: 'Events',
-      path: '/',
-    },
-    {
+     {
       label: 'News',
       path: '/',
     },
     {
       label: 'Research',
       children: [
-        { label: 'Academy', path: '/services/design' },
-        { label: 'Sha example', path: '/services/sha' },
-        { label: 'Markets', path: '/services/market' },
+        { label: 'Insights', path: '/insights' },
+        { label: 'On-chain Metrics', path: '/insights' },
+      ],
+    },{
+      label: 'Academy',
+      children: [
+        { label: 'Articles', path: '/academy/articles' },
+        { label: 'Sha Example', path: '/services/sha' },
+        { label: 'Fintech for Everyone ', path: '/services/sha' },
       ],
     },
     {
-      label: 'Contact us',
-      path: '/about',
-    },
-    {
-      label: 'FAQ',
-      path: '/FAQ',
+      label: 'Events',
+      path: '/',
     },
   ];
   

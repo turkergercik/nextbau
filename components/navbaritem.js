@@ -17,7 +17,7 @@ export default function NavbarItem({ route, isOpen, onClick, closeDropdown }) {
           {isOpen === true ? <IoIosArrowDropdownCircle /> : <IoIosArrowDropdown />}
         </button>
         {isOpen && (
-          <div className="absolute right-0 mt-2 w-48 bg-gray-900 text-white rounded-md border-gray-200 border-2 shadow-lg">
+          <div className="absolute right-0 mt-2 z-10 whitespace-nowrap bg-gray-900 text-white rounded-md border-gray-200 border-2 shadow-lg">
             {route.children.map((child, index) => (
               <Link
                 key={index}

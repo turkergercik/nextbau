@@ -91,7 +91,7 @@ const ScrollableButtonContainer = ({ folders, selectedfolders, setselectedFolder
           key={index}
           onClick={() => handleButtonClick(item.name)}
           className={`inline-block p-2 px-3 mx-1.5 bg-gray-500 text-white rounded-full ${
-            selectedfolders === item.name || (selectedfolders === "" && index === 0) ? "bg-gray-600 border-2" : ""
+            selectedfolders === item.name || (selectedfolders === "" && index === 0) ? "bg-gray-700 border-2" : ""
           }`}
         >
           {item.name}

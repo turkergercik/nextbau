@@ -7,6 +7,7 @@ import ScrollableButtonContainer from "@/components/scrollable";
 import YouTubeVideos from "@/components/youtube";
 import MediumArticles from "@/components/insights";
 import { useRouter } from "next/navigation";
+import Articlepreview from "@/components/articlepreview";
 export default function Home() {
   const router = useRouter();
   const [images,setImages] = useState([])
@@ -107,7 +108,7 @@ export default function Home() {
 
 
   return (
-    <div className="w-screen h-screen bg-gray-900 text-gray-200">
+    <div className="w-full h-screen bg-gray-900 text-gray-200  ">
       <div className="flex justify-center bg-gray-900 flex-col items-center p-10 ">
     
         <div className="flex custom:flex-row flex-col justify-center gap-8 w-full max-w-6xl">
@@ -135,11 +136,18 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="pb-2 bg-gray-900 ">
+      <div className="pb-2 bg-gray-900">
          <YouTubeVideos router={router}></YouTubeVideos>
          
       </div>
-      <MediumArticles  router={router}></MediumArticles>
+    <div className="w-full  bg-gray-800">
+    <Articlepreview router={router}></Articlepreview>
+
+   
+    </div>
+       
+
+  
 <div className="bg-gray-900 border-y-2 p-1 pt-2">
             <span className="text-3xl text-center block p-2">{selectedfolders}</span>
             <Carousel  images={images}>

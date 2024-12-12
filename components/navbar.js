@@ -38,7 +38,7 @@ export default function Navbar() {
       {/* Logo */}
       <div className="text-lg font-semibold w-full items-center h-full flex pl-2">
         <Link href="/">
-          <Image className='w-[100px] custom:w-[100px]' src={'/assets/logo1.png'} priority width={1000} height={1000} alt="logo" />
+          <Image className='w-[60px] custom:w-[60px]' src={'/assets/logo2.png'} priority width={750} height={750} alt="logo" />
         </Link>
       </div>
   

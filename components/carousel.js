@@ -2,6 +2,8 @@
 import React, { useEffect, useState,useRef } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { GrPrevious } from "react-icons/gr";
+import { GrNext } from "react-icons/gr";
 //import { Autoplay, Pagination, Navigation,Controller,FreeMode ,EffectCoverflow,EffectCards} from "swiper/modules";
 import { Autoplay,Pagination,Navigation,Controller,EffectCoverflow,EffectCards,Zoom } from "swiper";
 // Import Swiper styles
@@ -23,10 +25,15 @@ export default function Carousel({images}){
             <>
               {images.length !== 0 && (
                 <div className="bg-gray-900 w-full flex justify-center  py-2 items-center">
+                  <button className="p-1" onClick={()=>{swiperRef.current.slidePrev()}}>
+                    <GrPrevious size={30}></GrPrevious>
+                  </button>
                   <Swiper
                     initialSlide={1}
                     onBeforeInit={(swiper) => {
                       swiperRef.current = swiper;
+                     
+                      
                       
                     }}
                     draggable={false}
@@ -45,7 +52,7 @@ export default function Carousel({images}){
                       dynamicBullets: true,
                     }}
                     slidesPerView={1.5} // Always maintain 3 slides per view
-                    navigation={true}
+                    navigation={false}
                     centeredSlides
                     /* autoplay={{
                       delay: 2500,
@@ -55,7 +62,7 @@ export default function Carousel({images}){
                     loop
                     breakpoints={{
                       250: {
-                        slidesPerView: 1.2,
+                        slidesPerView:1.1,
                         spaceBetween: 20,
                       },
                       640: {
@@ -73,7 +80,7 @@ export default function Carousel({images}){
                     }}
                     spaceBetween={0}
                     className="w-full"
-                    modules={[Zoom, Navigation, EffectCoverflow]}
+                    modules={[Zoom, EffectCoverflow]}
                   >
                     {images?.map((image, index) => (
                       <SwiperSlide
@@ -117,6 +124,9 @@ export default function Carousel({images}){
                       </SwiperSlide>
                     ))}
                   </Swiper>
+                  <button className="p-1" onClick={()=>{swiperRef.current.slideNext()}}>
+                  <GrNext size={30} />
+                  </button>
                 </div>
               )}
             </>

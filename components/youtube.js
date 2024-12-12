@@ -12,7 +12,9 @@ const YouTubeVideos = ({router}) => {
         try {
           const response = await fetch(
             `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&maxResults=3&order=date&type=video&key=${API_KEY}`
-          );
+          ,{
+            cache:"force-cache"
+          });
           if (!response.ok) {
             throw new Error(`Error fetching data: ${response.statusText}`);
           }
@@ -34,12 +36,13 @@ const YouTubeVideos = ({router}) => {
     <div className="w-full flex justify-center items-center  flex-col">
 
       <h1 className="text-3xl p-2">Latest Videos</h1>
-      <div className="flex flex-1 flex-row w-full overflow-auto no-scrollbar">
+      <div className="flex flex-col sm:flex-row w-full justify-evenly gap-3 p-3 overflow-auto no-scrollbar">
       {videos.map((video) => (
-        <div key={video.id.videoId} className="flex bg-gray-700 mx-5 py-2   rounded-lg flex-1 flex-col justify-between items-center">
-          <h2 className="text-center p-1">{decodeHtmlEntities(video.snippet.title)}</h2>
+        <div key={video.id.videoId} className="flex bg-gray-700  rounded-lg w-full p-2  flex-col justify-between items-center">
+          <h2 className="text-center p-2 pb-3 ">{decodeHtmlEntities(video.snippet.title)}</h2>
+
           <iframe
-          className="rounded-lg"
+          className="rounded-lg aspect-video w-full "
             src={`https://www.youtube.com/embed/${video.id.videoId}`}
             
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -49,7 +52,7 @@ const YouTubeVideos = ({router}) => {
         </div>
       ))}
       </div>
-      <button className=" bg-gray-700 p-2 m-4 rounded-full" onClick={()=>{ router.push(`https://www.youtube.com/channel/${CHANNEL_ID}`)}}>Visit the Channel</button>
+      <button className=" bg-gray-700 p-2 m-4 rounded-full text-white" onClick={()=>{ router.push(`https://www.youtube.com/channel/${CHANNEL_ID}`)}}>Visit the Channel</button>
     </div>
   );
 };

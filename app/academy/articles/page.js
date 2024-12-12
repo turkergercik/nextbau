@@ -2,8 +2,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { createClient } from 'contentful'
-import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+
 import { useRouter } from 'next/navigation';
 const sid="h7ad3r48qk3t"
 const at ="qvYt_tcie5ni9ozEnmc4QQJuLSy2k-nvA6hDaiZY2YE"
